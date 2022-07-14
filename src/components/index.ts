@@ -1,2 +1,1 @@
-export { Settings } from './settings';
-export { Events } from './events';
+export { IssueCreateForm } from './issueCreate'

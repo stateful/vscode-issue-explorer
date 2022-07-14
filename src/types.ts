@@ -1,3 +1,1 @@
-export interface ExtensionConfiguration {
-    defaultNotifications: number
-}
+export interface ExtensionConfiguration {}
