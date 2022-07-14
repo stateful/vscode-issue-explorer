@@ -1,0 +1,17 @@
+.vscode/**
+.vscode-test/**
+.github/**
+!.github/assets
+node_modules/**
+!node_modules/@vscode/codicons
+!node_modules/@vscode/webview-ui-toolkit/dist/toolkit.js
+src/**
+.gitignore
+.yarnrc
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+**/*.mjs
+**/*.test.js
+**/tests/**
