@@ -4,11 +4,9 @@ import { EventEmitter } from 'events'
 import IssueCreatePanel from "../webviews/issueCreate"
 
 export default class ExtensionController implements vscode.Disposable {
+    private readonly _channel = vscode.window.createOutputChannel('Issue Explorer')
     private _event: EventEmitter = new EventEmitter()
     private _disposables: vscode.Disposable[] = []
-
-    // extension webviews
-    private _issueCreatePanel: IssueCreatePanel
 
     /**
      * The main controller constructor
@@ -17,8 +15,9 @@ export default class ExtensionController implements vscode.Disposable {
     constructor(private _context: vscode.ExtensionContext) {
         this._context.subscriptions.push(this)
 
-        this._issueCreatePanel = new IssueCreatePanel(this._context)
-        this._disposables.push(vscode.window.registerWebviewViewProvider('issueCreate', this._issueCreatePanel))
+        this._disposables.push(
+            vscode.window.registerWebviewViewProvider('create-issue', new IssueCreatePanel(this._context))
+        )
     }
 
     /**
@@ -38,13 +37,19 @@ export default class ExtensionController implements vscode.Disposable {
      * Initializes the extension
      */
     public async activate() {
+        this._registerCommand('issue-explorer.createIssueFromSelection', this._createIssueFromSelection.bind(this))
         console.log(`[ExtensionController] extension activated`)
+    }
+
+    _createIssueFromSelection (a: any) {
+        this._channel.appendLine(`HA!!!`)
     }
 
     /**
      * Helper method to setup command registrations with arguments
      */
     private _registerCommand(command: string, listener: (...args: any[]) => void): void {
+        this._channel.appendLine(`Register command ${command}`)
         this._disposables.push(vscode.commands.registerCommand(command, (args: any) => {
             this._event.emit(command, args)
             return listener(args)

@@ -16,7 +16,7 @@
           font-src <%= it.cspSource %>;
         "
     />
-    <meta data-extension-configuration='<%~ JSON.stringify(it.config) %>' />
+    <meta data-extension-configuration='<%~ JSON.stringify(it.config || {}) %>' />
 
     <% it.stylesheets.forEach((stylesheet) => { %>
         <link
@@ -36,8 +36,6 @@
     <% }) %>
 </head>
 <body>
-    <app-settings></app-settings>
-    <vscode-divider></vscode-divider>
-    <app-events><i class="codicon codicon-bell"></i></app-events>
+    <issue-create />
 </body>
 </html>
