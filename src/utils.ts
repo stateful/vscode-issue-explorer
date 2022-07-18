@@ -30,14 +30,17 @@ export async function getHtmlForWebview(webview: Webview, extensionUri: Uri) {
         id: 'vscode-codicon-stylesheet',
         href: getUri(webview, extensionUri, ['node_modules', '@vscode', 'codicons', 'dist', 'codicon.css'])
     }]
+    const baseAppUri = getUri(webview, extensionUri, ['out']).toString()
 
     try {
         const html = await tpl({
             scripts, stylesheets, cspSource,
             nonce: crypto.randomBytes(16).toString('base64'),
-            config: config.get('configuration'),
-            title: 'VSCode Awesome UX',
-            rootElem: 'todo-app'
+            config: {
+                ...(config.get('configuration') as object || {}),
+                baseAppUri
+            },
+            title: 'GitHub Issue Explorer'
         })
         return html!
     } catch (err: any) {

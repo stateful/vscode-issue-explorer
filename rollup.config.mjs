@@ -1,11 +1,9 @@
-import fs from 'fs/promises';
-import multiInput from 'rollup-plugin-multi-input';
-import resolve from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
-import eta from 'rollup-plugin-eta';
+import resolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
+import copy from 'rollup-plugin-copy'
+import eta from 'rollup-plugin-eta'
 
-const pkg = JSON.parse((await fs.readFile('package.json')).toString());
-const extensions = ['.js', '.ts'];
+const extensions = ['.js', '.ts']
 
 export default [{
     input: 'src/components/index.ts',
@@ -35,7 +33,8 @@ export default [{
     plugins: [
         typescript({ tsconfig: './tsconfig.json' }),
         resolve({ extensions }),
-        eta()
+        eta(),
+        copy({ targets: [{ src: 'src/assets', dest: 'out' }] })
     ],
     external: ['vscode']
-}];
+}]

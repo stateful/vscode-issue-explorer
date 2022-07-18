@@ -4,3 +4,4 @@ export const webviewOptions = {
 }
 
 export const extensionName = 'vscode-issue-explorter'
+export const issueCreateChannel = 'issue-create'
