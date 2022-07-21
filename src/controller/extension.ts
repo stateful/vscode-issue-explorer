@@ -1,11 +1,13 @@
-import vscode from "vscode"
+import vscode from 'vscode'
 import { EventEmitter } from 'events'
 
-import IssueCreatePanel from "../webviews/issueCreate"
+import IssueCreatePanel, { WebviewEvents } from '../webviews/issueCreate'
+import GitProvider from '../provider/git'
 import type { CodeSelection } from '../types'
 
 export default class ExtensionController implements vscode.Disposable {
     private readonly _channel = vscode.window.createOutputChannel('Issue Explorer')
+    private readonly _git = new GitProvider()
     private _event: EventEmitter = new EventEmitter()
     private _disposables: vscode.Disposable[] = []
 
@@ -19,6 +21,7 @@ export default class ExtensionController implements vscode.Disposable {
         this._context.subscriptions.push(this)
 
         this._issueCreatePanel = new IssueCreatePanel(this._context)
+        this._issueCreatePanel.on('issueCreateSubmission', this.#createIssue.bind(this))
         this._disposables.push(
             vscode.window.registerWebviewViewProvider('create-issue', this._issueCreatePanel)
         )
@@ -49,19 +52,26 @@ export default class ExtensionController implements vscode.Disposable {
         console.log(`[ExtensionController] extension activated`)
     }
 
-    _createIssueFromSelection (editor: vscode.TextEditor) {
+    async _createIssueFromSelection (editor: vscode.TextEditor) {
         const codeLines: CodeSelection[] = editor.selections.map((s) => ({
             uri: editor.document.uri,
             start: s.start.line,
             end: s.end.line,
             code: editor.document.getText(new vscode.Range(
-                editor.selection.start.line,
+                s.start.line,
                 0,
-                editor.selection.end.line,
+                s.end.line,
                 Infinity
             ))
         }))
+        await vscode.commands.executeCommand('create-issue.focus')
         this._issueCreatePanel.initIssueForm(codeLines)
+    }
+
+    async #createIssue (params: WebviewEvents['issueCreateSubmission']) {
+        const provider = await this._git.getRemoteVCS()
+        const result = await provider.createIssue(params.title, params.description, params.selection)
+        this._issueCreatePanel.emitIssueCreationResult(result)
     }
 
     /**

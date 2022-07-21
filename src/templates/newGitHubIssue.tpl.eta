@@ -1,0 +1,23 @@
+<%= it.description %>
+
+
+---
+
+## Code References
+<% for (const selection of it.codeSelection) { %>
+<details>
+<summary>
+    <%= selection.uri.path %>
+    (<% if (selection.start === selection.end) {
+        %>Line: <%= selection.end %>
+    <% } else {
+        %>Line: <%= selection.start %> - <%= selection.end %><%
+    } %>)
+</summary>
+<pre>
+<%= selection.code %>
+</pre>
+</details>
+<% } %>
+
+<!-- <%~ JSON.stringify(it.codeSelection) %> -->

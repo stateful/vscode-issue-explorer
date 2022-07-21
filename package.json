@@ -109,8 +109,10 @@
     "webdriverio": "^7.20.5"
   },
   "dependencies": {
+    "@octokit/rest": "^19.0.3",
     "@vscode/codicons": "^0.0.31",
     "@vscode/webview-ui-toolkit": "^1.0.0",
+    "lit": "^2.2.7",
     "lit-element": "^3.2.1",
     "tangle": "^2.1.0"
   }
