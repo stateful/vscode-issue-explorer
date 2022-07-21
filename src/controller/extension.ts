@@ -1,5 +1,7 @@
+import path from 'node:path'
+import { EventEmitter } from 'node:events'
+
 import vscode from 'vscode'
-import { EventEmitter } from 'events'
 
 import IssueCreatePanel, { WebviewEvents } from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
@@ -35,7 +37,7 @@ export default class ExtensionController implements vscode.Disposable {
         console.log('[ExtensionController] extension deactivated')
     }
 
-    dispose () {
+    dispose() {
         this._disposables.forEach((disposable) => disposable.dispose())
         console.log(`[ExtensionController] ${this._disposables.length} items disposed`)
     }
@@ -52,9 +54,10 @@ export default class ExtensionController implements vscode.Disposable {
         console.log(`[ExtensionController] extension activated`)
     }
 
-    async _createIssueFromSelection (editor: vscode.TextEditor) {
+    async _createIssueFromSelection(editor: vscode.TextEditor) {
         const codeLines: CodeSelection[] = editor.selections.map((s) => ({
             uri: editor.document.uri,
+            fileType: path.basename(editor.document.uri.path).split('.').pop() || '',
             start: s.start.line,
             end: s.end.line,
             code: editor.document.getText(new vscode.Range(
@@ -68,7 +71,7 @@ export default class ExtensionController implements vscode.Disposable {
         this._issueCreatePanel.initIssueForm(codeLines)
     }
 
-    async #createIssue (params: WebviewEvents['issueCreateSubmission']) {
+    async #createIssue(params: WebviewEvents['issueCreateSubmission']) {
         const provider = await this._git.getRemoteVCS()
         const result = await provider.createIssue(params.title, params.description, params.selection)
         this._issueCreatePanel.emitIssueCreationResult(result)

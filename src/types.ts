@@ -8,6 +8,7 @@ export interface CodeSelection {
     start: number
     end: number
     uri: vscode.Uri,
+    fileType: string,
     code: string
 }
 
@@ -17,6 +18,8 @@ export interface IRemoteProvider {
         description: string,
         selection: CodeSelection[]
     ): Promise<CreateIssueResponse>
+
+    findIssues (): Promise<CodeSelection>
 }
 
 export type CreateIssueResponse = CreateIssueResult | CreateIssueError

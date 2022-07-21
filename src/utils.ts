@@ -1,11 +1,11 @@
 import crypto from 'crypto'
 import { Uri, Webview, window, workspace } from "vscode"
-import { extensionName } from './constants'
+import { EXTENSION_NAME } from './constants'
 
 // @ts-expect-error
 import tpl from './templates/issueCreate.tpl.eta'
 
-const config = workspace.getConfiguration(extensionName)
+const config = workspace.getConfiguration(EXTENSION_NAME)
 
 function getUri(webview: Webview, extensionUri: Uri, pathList: string[]) {
     return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList))

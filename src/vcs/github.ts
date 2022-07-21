@@ -5,7 +5,8 @@ import type { Octokit as OctokitType, RestEndpointMethodTypes } from '@octokit/r
 const require = createRequire(import.meta.url)
 const { Octokit } = require('@octokit/rest')
 
-import type { CodeSelection, IRemoteProvider, CreateIssueResult, CreateIssueResponse, CreateIssueError } from '../types'
+import { ISSUE_LABEL } from '../constants'
+import type { CodeSelection, IRemoteProvider, CreateIssueResult, CreateIssueError } from '../types'
 
 // @ts-expect-error
 import tpl from '../templates/newGitHubIssue.tpl.eta'
@@ -57,7 +58,8 @@ export default class GitHubManager implements IRemoteProvider {
                 owner: this.#owner,
                 repo: this.#repo,
                 title,
-                body: await tpl({ title, description, codeSelection })
+                body: await tpl({ title, description, codeSelection }),
+                labels: [ISSUE_LABEL]
             })!
             const issueNumber = result.data.url.split('/').pop()
 
@@ -73,5 +75,9 @@ export default class GitHubManager implements IRemoteProvider {
             vscode.window.showErrorMessage(error)
             return <CreateIssueError>{ error }
         }
+    }
+
+    public findIssues () {
+        return [] as any
     }
 }

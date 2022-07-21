@@ -14,9 +14,13 @@
         %>Line: <%= selection.start %> - <%= selection.end %><%
     } %>)
 </summary>
-<pre>
-<%= selection.code %>
-</pre>
+
+```<%= selection.fileType %>
+
+<%~ selection.code %>
+
+```
+
 </details>
 <% } %>
 
