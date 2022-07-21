@@ -11,6 +11,7 @@ import type { Client } from 'tangle'
 
 import { vscode, config, codiconCSSRules } from './constants'
 import { issueCreateChannel } from '../constants'
+import { shrinkPath } from './third_party/shring-path'
 import type { CodeSelection } from '../types'
 import type { WebviewEvents } from '../webviews/issueCreate'
 
@@ -32,14 +33,28 @@ export class IssueCreateForm extends LitElement {
             color: #F52558
         }
 
+        sub {
+            display: block;
+            margin-top: 5px;
+        }
+
         img, vscode-text-field, vscode-text-area {
             width: 100%
         }
+
         .btnSection {
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
             gap: 10px;
+        }
+
+        .codeSelection {
+            padding-inline-start: 25px;
+        }
+
+        .codeSelection li {
+            margin-bottom: 15px;
         }
 
         @keyframes spin {
@@ -93,10 +108,25 @@ export class IssueCreateForm extends LitElement {
                 ${this.#requestPending && html`<span slot="start" class="codicon codicon-loading"></span>` || ''}
             </vscode-button>
         </p>
+        <vscode-divider></vscode-divider>
+        <h4>Selected Code Lines</h4>
+        <ul class="codeSelection">
+            ${this.#codeSelection.map((selection) => html/*html*/`
+            <li>
+                ${shrinkPath(selection.uri.path, 50)}
+                <sub>${
+                    selection.start === selection.end
+                    ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`
+                    : html/*html*/`<b>Lines:</b> ${selection.start + 1} - ${selection.end + 1}</sub>`
+                }
+            </li>
+            `)}
+        </ul>
         `
     }
 
     #cancel () {
+        this.#requestPending = false
         this.#codeSelection = []
         this.requestUpdate()
     }
