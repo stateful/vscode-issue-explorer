@@ -54,11 +54,14 @@ export class IssueCreateForm extends LitElement {
         }
 
         .codeSelection {
-            padding-inline-start: 25px;
+            list-style: none;
+            padding-inline-start: 0;
         }
 
         .codeSelection li {
             margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
         }
 
         .errorMessage {
@@ -74,6 +77,13 @@ export class IssueCreateForm extends LitElement {
             position: relative;
             top: 3px;
             padding-right: 5px;
+        }
+        button.codicon-close {
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            color: inherit;
+            padding: 0;
         }
 
         .createIssueForm {
@@ -144,6 +154,11 @@ export class IssueCreateForm extends LitElement {
         })
     }
 
+    #removeCodeReference (i: number) {
+        this.#codeSelection.splice(i, 1)
+        this.requestUpdate()
+    }
+
     renderWelcomeView() {
         return html/* html */`
         <h3>GitHub Issue Explorer</h3>
@@ -184,14 +199,17 @@ export class IssueCreateForm extends LitElement {
             <vscode-divider></vscode-divider>
             <h4>Selected Code Lines</h4>
             <ul class="codeSelection">
-                ${this.#codeSelection.map((selection) => html/*html*/`
+                ${this.#codeSelection.map((selection, i) => html/*html*/`
                 <li>
-                    ${shrinkPath(selection.uri, 50)}
-                    <sub>${
-                        selection.start === selection.end
-                        ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`
-                        : html/*html*/`<b>Lines:</b> ${selection.start + 1} - ${selection.end + 1}</sub>`
-                    }
+                    <button @click=${(e: CustomEvent) => { e.preventDefault(); this.#removeCodeReference(i) }} class='codicon codicon-close'></button>
+                    <div>
+                        ${shrinkPath(selection.uri, 50)}
+                        <sub>${
+                            selection.start === selection.end
+                            ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`
+                            : html/*html*/`<b>Lines:</b> ${selection.start + 1} - ${selection.end + 1}</sub>`
+                        }
+                    </div>
                 </li>
                 `)}
             </ul>
