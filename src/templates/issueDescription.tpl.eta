@@ -1,0 +1,9 @@
+A code bug was reported in __[<%= it.issueLabel %>](<%= it.issueUrl %>)__
+
+by __[<%= it.authorLabel %>](<%= it.authorUrl %>)__
+
+---
+
+## <%= it.title %>
+
+<%~ it.body %>

@@ -7,7 +7,7 @@ export interface ExtensionConfiguration {
 export interface CodeSelection {
     start: number
     end: number
-    uri: vscode.Uri,
+    uri: string,
     fileType: string,
     code: string
 }
@@ -19,7 +19,7 @@ export interface IRemoteProvider {
         selection: CodeSelection[]
     ): Promise<CreateIssueResponse>
 
-    findIssues (): Promise<CodeSelection>
+    findIssues (): Promise<ReferencedIssue[]>
 }
 
 export type CreateIssueResponse = CreateIssueResult | CreateIssueError
@@ -33,4 +33,11 @@ export interface CreateIssueResult {
 
 export interface CreateIssueError {
     error: string
+}
+
+export interface ReferencedIssue extends CreateIssueResult {
+    codeSelection: CodeSelection[]
+    referencedFiles: string[]
+    body: string
+    title: string
 }

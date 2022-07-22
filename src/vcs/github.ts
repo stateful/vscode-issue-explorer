@@ -6,13 +6,17 @@ const require = createRequire(import.meta.url)
 const { Octokit } = require('@octokit/rest')
 
 import { ISSUE_LABEL } from '../constants'
-import type { CodeSelection, IRemoteProvider, CreateIssueResult, CreateIssueError } from '../types'
+import type {
+    CodeSelection, IRemoteProvider, CreateIssueResult, CreateIssueError,
+    ReferencedIssue
+} from '../types'
 
 // @ts-expect-error
 import tpl from '../templates/newGitHubIssue.tpl.eta'
 
 const GITHUB_AUTH_PROVIDER_ID = 'github'
 const SCOPES = ['user:email', 'repo']
+const COMMENT_START = '<!-- '
 
 export default class GitHubManager implements IRemoteProvider {
     #octokit?: OctokitType
@@ -77,7 +81,40 @@ export default class GitHubManager implements IRemoteProvider {
         }
     }
 
-    public findIssues () {
-        return [] as any
+    public async findIssues () {
+        await this.#ensureAuth()
+        const issues = await this.#octokit!.issues.listForRepo({
+            owner: this.#owner,
+            repo: this.#repo,
+            labels: ISSUE_LABEL.name,
+            state: 'open'
+        })
+
+        return issues.data
+            .filter((issue) => Boolean(issue.body))
+            .map((issue) => {
+                const issueDetails = issue.body!.slice(
+                    issue.body!.indexOf(COMMENT_START) + COMMENT_START.length,
+                    -COMMENT_START.length
+                )
+
+                try {
+                    const codeSelection = JSON.parse(issueDetails) as CodeSelection[]
+                    const referencedIssue: ReferencedIssue = {
+                        codeSelection,
+                        referencedFiles: codeSelection.map((s) => s.uri),
+                        body: issue.body!.slice(0, issue.body!.indexOf(COMMENT_START)),
+                        title: issue.title,
+                        issueUrl: issue.html_url,
+                        issueLabel: `${this.#owner}/${this.#repo}#${issue.url.split('/').pop()}`,
+                        authorUrl: issue.user?.html_url!,
+                        authorLabel: `@${issue.user?.login}`
+                    }
+                    return referencedIssue
+                } catch (err) {
+                    console.log(`Couldn't fetch issue details for ${issueDetails}`)
+                }
+            })
+            .filter(Boolean) as ReferencedIssue[]
     }
 }

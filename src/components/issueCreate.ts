@@ -186,7 +186,7 @@ export class IssueCreateForm extends LitElement {
             <ul class="codeSelection">
                 ${this.#codeSelection.map((selection) => html/*html*/`
                 <li>
-                    ${shrinkPath(selection.uri.path, 50)}
+                    ${shrinkPath(selection.uri, 50)}
                     <sub>${
                         selection.start === selection.end
                         ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`
