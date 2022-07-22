@@ -5,6 +5,7 @@ import type { Octokit as OctokitType, RestEndpointMethodTypes } from '@octokit/r
 const require = createRequire(import.meta.url)
 const { Octokit } = require('@octokit/rest')
 
+import GitProvider from '../provider/git'
 import { ISSUE_LABEL } from '../constants'
 import type {
     CodeSelection, IRemoteProvider, CreateIssueResult, CreateIssueError,
@@ -22,10 +23,12 @@ export default class GitHubManager implements IRemoteProvider {
     #octokit?: OctokitType
     #owner: string
     #repo: string
+    #git: GitProvider
 
-    constructor (owner: string, repo: string) {
+    constructor (owner: string, repo: string, git: GitProvider) {
         this.#owner = owner
         this.#repo = repo
+        this.#git = git
     }
 
     get isAuthenticated() {
@@ -58,11 +61,19 @@ export default class GitHubManager implements IRemoteProvider {
 
         try {
             console.log(`Create new Issue: "${title}"`)
+            const sha = await this.#git.getCurrentHead()
             const result: RestEndpointMethodTypes["issues"]["create"]["response"] = await this.#octokit?.issues.create({
                 owner: this.#owner,
                 repo: this.#repo,
                 title,
-                body: await tpl({ title, description, codeSelection }),
+                body: await tpl({
+                    owner: this.#owner,
+                    repo: this.#repo,
+                    title,
+                    description,
+                    codeSelection,
+                    sha
+                }),
                 labels: [ISSUE_LABEL]
             })!
             const issueNumber = result.data.url.split('/').pop()

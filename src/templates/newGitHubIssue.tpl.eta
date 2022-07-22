@@ -7,7 +7,9 @@
 <% for (const selection of it.codeSelection) { %>
 <details>
 <summary>
-    <%= selection.uri %>
+    <a href="https://github.com/<%= it.owner %>/<%= it.repo %>/blob/<%= it.sha %>/<%= selection.uri %>#L<%= selection.start + 1 %>-L<%= selection.end + 1 %>">
+        <%= selection.uri %>
+    </a>
     (<% if (selection.start === selection.end) {
         %>Line: <%= selection.end %>
     <% } else {

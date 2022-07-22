@@ -41,7 +41,8 @@ export default class GitProvider {
                 owner,
                 repoName.endsWith('.git')
                     ? repoName.slice(0, -4)
-                    : repoName
+                    : repoName,
+                this
             )
         }
 
@@ -50,6 +51,12 @@ export default class GitProvider {
 
     public async getRemoteVCS () {
         return await this.#vcsManager
+    }
+
+    public async getCurrentHead () {
+        await this.getRemoteVCS()
+        const repo = this.#git!.repositories[0]
+        return repo.state.HEAD?.commit
     }
 
     async #waitForRemotes (retries = 5): Promise<Remote> {
