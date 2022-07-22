@@ -8,12 +8,12 @@ import {
 } from 'lit-element'
 import { when } from 'lit/directives/when.js'
 import Channel from 'tangle/webviews'
+import shrinkPath from 'shrink-path'
 import type { TextArea, TextField } from '@vscode/webview-ui-toolkit'
 import type { Client } from 'tangle'
 
 import { vscode, config, codiconCSSRules } from './constants'
 import { ISSUE_CREATE_CHANNEL } from '../constants'
-import { shrinkPath } from './third_party/shring-path'
 import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError } from '../types'
 import type { WebviewEvents } from '../webviews/issueCreate'
 

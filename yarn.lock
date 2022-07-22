@@ -4407,6 +4407,11 @@ shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
+shrink-path@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/shrink-path/-/shrink-path-0.3.1.tgz#29c394b290b2186fb087863d24aa3645493e4e42"
+  integrity sha512-3L+Hj1BZo4+uKw5k6a8Surln+C8/SvCWq1SCIqnDaB2jcgsjKCANczTv9xX6kQy8uuFfTfPVTv/t+zqbD1Lg5A==
+
 side-channel@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/side-channel/-/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
