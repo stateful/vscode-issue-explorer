@@ -6,7 +6,7 @@ import vscode from 'vscode'
 import IssueCreatePanel, { WebviewEvents } from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
 import { EDITOR_DECORATION_OPTION } from './constants'
-import type { CodeSelection } from '../types'
+import type { CodeSelection, CreateIssueError } from '../types'
 
 // @ts-expect-error
 import tpl from '../templates/issueDescription.tpl.eta'
@@ -15,6 +15,7 @@ const UPDATE_DECORATION_TIMEOUT = 500
 
 export default class ExtensionController implements vscode.Disposable {
     #activeEditor?: vscode.TextEditor
+    #selectedCodeLines: CodeSelection[] = []
 
     private readonly _channel = vscode.window.createOutputChannel('Issue Explorer')
     private readonly _git = new GitProvider()
@@ -87,14 +88,21 @@ export default class ExtensionController implements vscode.Disposable {
                 Infinity
             ))
         }))
+
+        this.#selectedCodeLines.push(...codeLines)
         await vscode.commands.executeCommand('create-issue.focus')
-        this._issueCreatePanel.initIssueForm(codeLines)
+        this._issueCreatePanel.initIssueForm(this.#selectedCodeLines)
     }
 
     async #createIssue(params: WebviewEvents['issueCreateSubmission']) {
         const provider = await this._git.getRemoteVCS()
         const result = await provider.createIssue(params.title, params.description, params.selection)
         this._issueCreatePanel.emitIssueCreationResult(result)
+
+        if (!(result as CreateIssueError).error) {
+            this.#selectedCodeLines = []
+        }
+
         this.#updateDecorations()
     }
 
