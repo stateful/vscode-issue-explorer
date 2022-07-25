@@ -1,6 +1,6 @@
-import fs from 'fs/promises';
-import path from 'path';
-import type { Options } from '@wdio/types';
+import fs from 'fs/promises'
+import path from 'path'
+import type { Options } from '@wdio/types'
 
 export const config: Options.Testrunner = {
     //
@@ -86,9 +86,10 @@ export const config: Options.Testrunner = {
     capabilities: [{
         browserName: 'vscode',
         browserVersion: 'stable', // "insiders" or "stable" for latest VSCode version
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'wdio:vscodeOptions': {
-            extensionPath: path.join(__dirname, '..'),
-            workspacePath: path.join(__dirname, '..'),
+            extensionPath: path.join(__dirname, '..', '..'),
+            workspacePath: path.join(__dirname, '..', '..'),
         }
     }],
     //
@@ -268,13 +269,13 @@ export const config: Options.Testrunner = {
      */
     afterTest: async function (test, __, { passed }) {
         if (passed) {
-            return;
+            return
         }
 
-        console.log('Capturing screenshot for debugging');
-        const screenshotDir = path.join(__dirname, 'screenshots');
-        await fs.mkdir(screenshotDir, { recursive: true });
-        await browser.saveScreenshot(path.join(screenshotDir, `${test.parent} - ${test.title}.png`));
+        console.log('Capturing screenshot for debugging')
+        const screenshotDir = path.join(__dirname, 'screenshots')
+        await fs.mkdir(screenshotDir, { recursive: true })
+        await browser.saveScreenshot(path.join(screenshotDir, `${test.parent} - ${test.title}.png`))
     }
 
     /**
@@ -326,4 +327,4 @@ export const config: Options.Testrunner = {
     */
     // onReload: function(oldSessionId, newSessionId) {
     // }
-};
+}

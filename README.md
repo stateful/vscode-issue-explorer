@@ -2,9 +2,9 @@ VS Code Issue Explorer
 ======================
 
 [![Tests](https://github.com/stateful/vscode-issue-explorer/actions/workflows/test.yaml/badge.svg)](https://github.com/stateful/vscode-issue-explorer/actions/workflows/test.yaml)
-![vscode version](https://vsmarketplacebadge.apphb.com/version/stateful.awesome-ux.svg)
-![number of installs](https://vsmarketplacebadge.apphb.com/installs/stateful.awesome-ux.svg)
-![average user rating](https://vsmarketplacebadge.apphb.com/rating/stateful.awesome-ux.svg)
+![vscode version](https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg)
+![number of installs](https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg)
+![average user rating](https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg)
 ![license](https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg)
 
 ### Create and explore code issues directly within VS Code and help to provide missing context in your issues through code references

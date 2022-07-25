@@ -46,7 +46,7 @@
       "activitybar": [
         {
           "id": "issue-explorer",
-          "title": "Issue Explorter",
+          "title": "Issue Explorer",
           "icon": "assets/icon.png"
         }
       ]
@@ -76,7 +76,8 @@
     "compile": "rollup -c ./rollup.config.mjs",
     "test": "run-s test:*",
     "test:lint": "eslint src --ext ts",
-    "test:e2e": "cd test && npx wdio run ./wdio.conf.ts",
+    "test:unit": "vitest",
+    "test:e2e": "cd tests/e2e && npx wdio run ./wdio.conf.ts",
     "watch": "npm run clean && npm run compile -- --watch"
   },
   "devDependencies": {
@@ -104,6 +105,7 @@
     "ts-node": "^10.8.2",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
+    "vitest": "^0.19.1",
     "vsce": "^2.9.2",
     "wdio-vscode-service": "^3.0.3",
     "webdriverio": "^7.20.5"

@@ -17,4 +17,5 @@ vscode.lsif
 vscode.db
 .vscode-test
 /.profile-oss
-test/.wdio-vscode-service
+.wdio-vscode-service
+tests/e2e/screenshots
