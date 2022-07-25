@@ -1,7 +1,7 @@
 VS Code Issue Explorer
 ======================
 
-[![Tests](https://github.com/stateful/vscode-issue-explorer/actions/workflows/test.yaml/badge.svg)](https://github.com/stateful/vscode-issue-explorer/actions/workflows/test.yaml)
+[![Tests](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg)](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml)
 ![vscode version](https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg)
 ![number of installs](https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg)
 ![average user rating](https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg)

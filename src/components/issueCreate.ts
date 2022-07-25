@@ -372,6 +372,8 @@ export class IssueCreateForm extends LitElement {
         form.remove()
         this.#error = undefined
         this.#result = result as CreateIssueResult
-        return this.requestUpdate()
+
+        // clear `codeSelection` and update state
+        return this.#cancel()
     }
 }
