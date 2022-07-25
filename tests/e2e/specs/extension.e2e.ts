@@ -1,6 +1,6 @@
 import type { ViewControl } from 'wdio-vscode-service'
 
-describe('Marquee Tree Viewer', () => {
+describe('Issue Explorer', () => {
     let issueExplorterVC: ViewControl
 
     describe('extension', () => {

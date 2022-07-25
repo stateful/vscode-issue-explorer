@@ -17,7 +17,7 @@ import { vscode, config, codiconCSSRules } from './constants'
 import { ISSUE_CREATE_CHANNEL } from '../constants'
 import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError, WebviewEvents } from '../types'
 
-const MARKETPLACE_URL = 'https://marketplace.visualstudio.com/items?itemName=stateful.marquee'
+const MARKETPLACE_URL = 'https://marketplace.visualstudio.com/items?itemName=stateful.issue-explorer'
 const GITHUB_URL = 'https://github.com/stateful/vscode-issue-explorer'
 const state = vscode.getState()
 

@@ -23,7 +23,7 @@ A lot of issues that are created in a project are missing contextual information
 
 1. Press `F1` or `⌘ + Shift + P` and type `install`.
 2. Pick `Extensions: Install Extension`.
-3. Type `marquee` and hit `enter`.
+3. Type `issue-explorer` and hit `enter`.
 4. Restart Visual Studio Code.
 5. Enter your name, create todos and be happy.
 
