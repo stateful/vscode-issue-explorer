@@ -42,3 +42,7 @@ export interface ReferencedIssue extends CreateIssueResult {
     body: string
     title: string
 }
+
+export interface WebViewState {
+    codeSelection: CodeSelection[]
+}

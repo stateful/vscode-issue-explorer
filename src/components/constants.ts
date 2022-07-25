@@ -1,6 +1,6 @@
-import type { ExtensionConfiguration } from '../types'
+import type { ExtensionConfiguration, WebViewState } from '../types'
 
-export const vscode = acquireVsCodeApi()
+export const vscode = acquireVsCodeApi<WebViewState>()
 
 const configDataProperty = 'data-extension-configuration'
 export const config: ExtensionConfiguration = JSON.parse(

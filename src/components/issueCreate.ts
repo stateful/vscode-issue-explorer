@@ -12,19 +12,21 @@ import shrinkPath from 'shrink-path'
 import type { TextArea, TextField } from '@vscode/webview-ui-toolkit'
 import type { Client } from 'tangle'
 
+import { updateState } from './utils'
 import { vscode, config, codiconCSSRules } from './constants'
 import { ISSUE_CREATE_CHANNEL } from '../constants'
 import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError } from '../types'
 import type { WebviewEvents } from '../webviews/issueCreate'
 
 const MARKETPLACE_URL = 'https://marketplace.visualstudio.com/items?itemName=stateful.marquee'
+const state = vscode.getState()
 
 @customElement('issue-create')
 export class IssueCreateForm extends LitElement {
     #error?: string
     #result?: CreateIssueResult
     #client: Client<WebviewEvents>
-    #codeSelection: CodeSelection[] = []
+    #codeSelection: CodeSelection[] = state?.codeSelection || []
     #requestPending = false
 
     static get styles(): CSSResult[] {
@@ -129,6 +131,13 @@ export class IssueCreateForm extends LitElement {
         this.#client = channel.attach(vscode as any)
         this.#client.on('initIssueForm', this.#initIssueForm.bind(this))
         this.#client.on('issueCreateResult', this.#renderResult.bind(this))
+
+        /**
+         * Propagate state to extension host to update our collection there
+         * in case VS Code was restarted and the webview kept code selections
+         * in its state
+         */
+        updateState(this.#client, {})
     }
 
     render() {
@@ -148,6 +157,8 @@ export class IssueCreateForm extends LitElement {
     #cancel () {
         this.#requestPending = false
         this.#codeSelection = []
+
+        updateState(this.#client, { codeSelection: [] })
         this.requestUpdate()
     }
 
@@ -176,6 +187,7 @@ export class IssueCreateForm extends LitElement {
 
     #removeCodeReference (i: number) {
         this.#codeSelection.splice(i, 1)
+        updateState(this.#client, { codeSelection: this.#codeSelection })
         this.requestUpdate()
     }
 
@@ -290,6 +302,8 @@ export class IssueCreateForm extends LitElement {
         this.#result = undefined
         this.#requestPending = false
         this.#codeSelection = codeSelection
+
+        updateState(this.#client, { codeSelection })
         this.requestUpdate()
     }
 

@@ -6,12 +6,10 @@ import vscode from 'vscode'
 import IssueCreatePanel, { WebviewEvents } from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
 import { EDITOR_DECORATION_OPTION } from './constants'
-import type { CodeSelection, CreateIssueError } from '../types'
+import type { CodeSelection, CreateIssueError, WebViewState } from '../types'
 
 // @ts-expect-error
 import tpl from '../templates/issueDescription.tpl.eta'
-
-const UPDATE_DECORATION_TIMEOUT = 500
 
 export default class ExtensionController implements vscode.Disposable {
     #activeEditor?: vscode.TextEditor
@@ -33,6 +31,9 @@ export default class ExtensionController implements vscode.Disposable {
 
         this._issueCreatePanel = new IssueCreatePanel(this._context)
         this._issueCreatePanel.on('issueCreateSubmission', this.#createIssue.bind(this))
+        this._issueCreatePanel.on('stateUpdate', (state: WebViewState) => {
+            this.#selectedCodeLines = state.codeSelection
+        })
         this._disposables.push(
             vscode.window.registerWebviewViewProvider('create-issue', this._issueCreatePanel),
             vscode.window.onDidChangeActiveTextEditor((editor) => {

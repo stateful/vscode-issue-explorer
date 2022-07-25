@@ -3,6 +3,7 @@ import { createRequire } from 'node:module'
 import type { Octokit as OctokitType, RestEndpointMethodTypes } from '@octokit/rest'
 
 const require = createRequire(import.meta.url)
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const { Octokit } = require('@octokit/rest')
 
 import GitProvider from '../provider/git'
@@ -42,8 +43,6 @@ export default class GitHubManager implements IRemoteProvider {
     }
 
     public async authenticate() {
-        console.log('Authenticate with ', this.#octokit)
-
         if (this.#octokit) {
             return this.#octokit
         }

@@ -11,7 +11,7 @@ import type { Bus } from 'tangle'
 import { WEBVIEW_OPTIONS, ISSUE_CREATE_CHANNEL } from '../constants'
 import { getHtmlForWebview } from '../utils'
 
-import type { CodeSelection, CreateIssueResponse } from '../types'
+import type { CodeSelection, CreateIssueResponse, WebViewState } from '../types'
 
 export interface WebviewEvents {
     initIssueForm: CodeSelection[]
@@ -20,6 +20,7 @@ export interface WebviewEvents {
         description: string
         selection: CodeSelection[]
     }
+    stateUpdate: WebViewState
     issueCreateResult: CreateIssueResponse
 }
 
@@ -45,6 +46,7 @@ export default class IssueCreate extends EventEmitter implements WebviewViewProv
         const bus = new Channel<WebviewEvents>(ISSUE_CREATE_CHANNEL)
         this._client = await bus.registerPromise([this._webviewView.webview])
         this._client.on('issueCreateSubmission', (val) => this.emit('issueCreateSubmission', val))
+        this._client.on('stateUpdate', (state) => this.emit('stateUpdate', state))
         console.log('[IssueCreate] webview resolved')
     }
 
