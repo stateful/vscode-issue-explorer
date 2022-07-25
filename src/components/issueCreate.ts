@@ -18,6 +18,7 @@ import { ISSUE_CREATE_CHANNEL } from '../constants'
 import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError, WebviewEvents } from '../types'
 
 const MARKETPLACE_URL = 'https://marketplace.visualstudio.com/items?itemName=stateful.marquee'
+const GITHUB_URL = 'https://github.com/stateful/vscode-issue-explorer'
 const state = vscode.getState()
 
 @customElement('issue-create')
@@ -34,10 +35,6 @@ export class IssueCreateForm extends LitElement {
             margin: 10px 0
         }
 
-        a {
-            color: #F52558
-        }
-
         sub {
             display: block;
             margin-top: 5px;
@@ -45,6 +42,17 @@ export class IssueCreateForm extends LitElement {
 
         img, vscode-text-field, vscode-text-area {
             width: 100%
+        }
+
+        footer {
+            text-align: center;
+            margin: 15px 0 5px;
+            font-size: .8em;
+            border-top: 1px solid rgba(255, 255, 255, .3);
+            padding-top: 3px;
+        }
+        footer vscode-link {
+            font-size: .9em;
         }
 
         .btnSection {
@@ -197,23 +205,40 @@ export class IssueCreateForm extends LitElement {
 
     renderWelcomeView() {
         return html/* html */`
-        <h3>GitHub Issue Explorer</h3>
+        <h2>GitHub Issue Explorer</h2>
         <p>
-            The <a href="${MARKETPLACE_URL}">GitHub Issue Explorer</a>
+            The <vscode-link href="${MARKETPLACE_URL}">GitHub Issue Explorer</vscode-link>
             allows you to quickly create GitHub issues while working on
-            your code. Just select a line or multiple lines, do right
+            your code. Just select one or multiple lines, do a right
             click and pick <i>Create Issue From Selection</i>, e.g.:
         </p>
-        <img src="${config.baseAppUri}/assets/img/demo.gif" />
+        <img src="${config.baseAppUri}/assets/img/select.gif" style="max-width: 594px" />
         <p>
-            Then fill out the issue form, press submit and done!
+            Then fill out the issue form and connect for code references if desired.
         </p>
+        <img src="${config.baseAppUri}/assets/img/describe.gif" style="max-width: 269px" />
+        <p>
+            You can comment on individual code references to document
+            what this piece of code is about and what changes you'ld expect.
+        </p>
+        <img src="${config.baseAppUri}/assets/img/details.gif" style="max-width: 269px" />
+        <p>
+            Lastly, click on submit and review your issue on GitHub:
+        </p>
+        <img src="${config.baseAppUri}/assets/img/view.gif" style="max-width: 717px" />
+        <p>
+            Or explore created issues within VS Code:
+        </p>
+        <img src="${config.baseAppUri}/assets/img/explore.gif" style="max-width: 671px" />
+        <footer>
+            For feedback or bug reports, visit <vscode-link href="${GITHUB_URL}"><b>stateful/vscode-issue-explorer</b></vscode-link>
+        </footer>
         `
     }
 
     renderForm () {
         return html/*html*/`<form class="createIssueForm">
-            <h3>Create Code Issue</h3>
+            <h2>Create Code Issue</h2>
             <p>
                 <vscode-text-field name="title">Issue Title</vscode-text-field>
             </p>
@@ -247,7 +272,7 @@ export class IssueCreateForm extends LitElement {
                     ></button>
                     <div>
                         <vscode-link @click=${() => this.#client.emit('openCodeReference', selection)}>
-                            ${shrinkPath(selection.uri, 50)}
+                            ${shrinkPath(selection.uri, 30)}
                         </vscode-link>
                         <sub>${
                             selection.start === selection.end

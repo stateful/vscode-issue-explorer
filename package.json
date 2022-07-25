@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "publisher": "stateful",
-  "icon": ".github/assets/stateful.png",
+  "icon": "assets/icon.png",
   "galleryBanner": {
     "color": "#2F2F2F",
     "theme": "dark"
@@ -47,7 +47,7 @@
         {
           "id": "issue-explorer",
           "title": "Issue Explorter",
-          "icon": "assets/stateful.png"
+          "icon": "assets/icon.png"
         }
       ]
     },
