@@ -62,6 +62,15 @@ export class IssueCreateForm extends LitElement {
             margin-bottom: 15px;
             display: flex;
             gap: 10px;
+            align-items: flex-start;
+        }
+
+        .codeSelection li div {
+            width: 100%;
+        }
+
+        .codeSelection li div vscode-text-area {
+            margin-top: 10px;
         }
 
         .errorMessage {
@@ -78,7 +87,8 @@ export class IssueCreateForm extends LitElement {
             top: 3px;
             padding-right: 5px;
         }
-        button.codicon-close {
+        button.codicon-close,
+        button.codicon-edit {
             border: 0;
             background: transparent;
             cursor: pointer;
@@ -142,20 +152,35 @@ export class IssueCreateForm extends LitElement {
     }
 
     #submit () {
-        this.#requestPending = true
-        this.requestUpdate()
-
         const titleElem = this.shadowRoot?.querySelector('vscode-text-field') as TextField
         const descriptionElem = this.shadowRoot?.querySelector('vscode-text-area') as TextArea
+
+        /**
+         * fetch code reference comments
+         */
+        const commentBlocks: TextArea[] = Array.from(this.shadowRoot?.querySelectorAll('vscode-text-area[name="codeReferenceComment"]') || [])
+        for (const commentBlock of commentBlocks) {
+            const item = parseInt(commentBlock.getAttribute('data-item')!, 10)
+            this.#codeSelection[item].comment = commentBlock.value
+        }
+
         this.#client.emit('issueCreateSubmission', {
             title: titleElem.value,
             description: descriptionElem.value,
             selection: this.#codeSelection
         })
+
+        this.#requestPending = true
+        this.requestUpdate()
     }
 
     #removeCodeReference (i: number) {
         this.#codeSelection.splice(i, 1)
+        this.requestUpdate()
+    }
+
+    #addCodeReferenceComment (i: number) {
+        this.#codeSelection[i].comment = ''
         this.requestUpdate()
     }
 
@@ -201,7 +226,14 @@ export class IssueCreateForm extends LitElement {
             <ul class="codeSelection">
                 ${this.#codeSelection.map((selection, i) => html/*html*/`
                 <li>
-                    <button @click=${(e: CustomEvent) => { e.preventDefault(); this.#removeCodeReference(i) }} class='codicon codicon-close'></button>
+                    <button
+                        title="Remove Code Reference"
+                        @click=${(e: CustomEvent) => {
+                            e.preventDefault()
+                            this.#removeCodeReference(i)
+                        }}
+                        class='codicon codicon-close'
+                    ></button>
                     <div>
                         ${shrinkPath(selection.uri, 50)}
                         <sub>${
@@ -209,7 +241,24 @@ export class IssueCreateForm extends LitElement {
                             ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`
                             : html/*html*/`<b>Lines:</b> ${selection.start + 1} - ${selection.end + 1}</sub>`
                         }
+                        ${when(
+                            typeof selection.comment === 'string',
+                            () => html/*html*/`
+                            <vscode-text-area
+                                name="codeReferenceComment"
+                                data-item=${i}
+                                rows=${3}
+                            ></vscode-text-area>`
+                        )}
                     </div>
+                    <button
+                        title="Add Comment to Code Reference"
+                        @click=${(e: CustomEvent) => {
+                            e.preventDefault()
+                            this.#addCodeReferenceComment(i)
+                        }}
+                        class='codicon codicon-edit'
+                    ></button>
                 </li>
                 `)}
             </ul>

@@ -9,8 +9,7 @@
         content="
           default-src 'none';
           img-src <%= it.cspSource %>;
-          script-src <%= it.cspSource %>
-          'nonce-<%= it.nonce %>';
+          script-src <%= it.cspSource %> 'nonce-<%= it.nonce %>';
           style-src 'unsafe-inline' <%= it.cspSource %>;
           style-src-elem 'unsafe-inline' <%= it.cspSource %>;
           font-src <%= it.cspSource %>;

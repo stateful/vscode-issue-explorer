@@ -10,6 +10,7 @@ export interface CodeSelection {
     uri: string,
     fileType: string,
     code: string
+    comment?: string
 }
 
 export interface IRemoteProvider {

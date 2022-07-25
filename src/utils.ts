@@ -3,7 +3,7 @@ import { Uri, Webview, window, workspace } from "vscode"
 import { EXTENSION_NAME } from './constants'
 
 // @ts-expect-error
-import tpl from './templates/issueCreate.tpl.eta'
+import tpl from './templates/webview.tpl.eta'
 
 const config = workspace.getConfiguration(EXTENSION_NAME)
 

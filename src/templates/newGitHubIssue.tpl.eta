@@ -10,12 +10,16 @@
     <a href="https://github.com/<%= it.owner %>/<%= it.repo %>/blob/<%= it.sha %>/<%= selection.uri %>#L<%= selection.start + 1 %>-L<%= selection.end + 1 %>">
         <%= selection.uri %>
     </a>
-    (<% if (selection.start === selection.end) {
-        %>Line: <%= selection.end %>
-    <% } else {
+    (<%
+    const withComment = Boolean(selection.comment) ? ' / with comment' : '';
+    if (selection.start === selection.end) {
+        %>Line: <%= selection.end %><%
+    } else {
         %>Line: <%= selection.start %> - <%= selection.end %><%
-    } %>)
+    } %><%= withComment %>)
 </summary>
+
+<%= selection.comment || '' %>
 
 ```<%= selection.fileType %>
 
