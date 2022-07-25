@@ -1,5 +1,5 @@
 {
-  "name": "vscode-issue-explorer",
+  "name": "issue-explorer",
   "displayName": "VS Code Issue Explorer",
   "description": "A VS Code extension that helps to create and explore GitHub issues within your IDE.",
   "version": "0.0.1",

@@ -199,8 +199,26 @@ export class IssueCreateForm extends LitElement {
     }
 
     #addCodeReferenceComment (i: number) {
+        if (typeof this.#codeSelection[i].comment === 'string') {
+            return
+        }
+
         this.#codeSelection[i].comment = ''
         this.requestUpdate()
+    }
+
+    #updateCodeReference (i: number, ev: InputEvent) {
+        // @ts-expect-error `path` doesn't seem to exist
+        const targetElem = ev.path.find((elem: HTMLElement) => (
+            elem.tagName && elem.tagName.toLocaleLowerCase() === 'vscode-text-area'
+        ))
+
+        if (!targetElem) {
+            return
+        }
+
+        this.#codeSelection[i].comment = targetElem.value
+        updateState(this.#client, { codeSelection: this.#codeSelection })
     }
 
     renderWelcomeView() {
@@ -283,9 +301,11 @@ export class IssueCreateForm extends LitElement {
                             typeof selection.comment === 'string',
                             () => html/*html*/`
                             <vscode-text-area
+                                @input=${(ev: InputEvent) => this.#updateCodeReference(i, ev)}
                                 name="codeReferenceComment"
                                 data-item=${i}
                                 rows=${3}
+                                value=${selection.comment}
                             ></vscode-text-area>`
                         )}
                     </div>
@@ -310,8 +330,8 @@ export class IssueCreateForm extends LitElement {
             Issue successfully created 🎉
         </p>
         <p>
-            <b><a href="${result.issueUrl}">${result.issueLabel}</a></b>
-            <sub>by <b><a href="${result.authorUrl}">${result.authorLabel}</a></b></sub>
+            <b><vscode-link href="${result.issueUrl}">${result.issueLabel}</vscode-link></b>
+            <sub>by <vscode-link href="${result.authorUrl}"><b>${result.authorLabel}</b></vscode-link></sub>
         </p>
         `
     }
