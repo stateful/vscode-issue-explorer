@@ -3,10 +3,10 @@ import { EventEmitter } from 'node:events'
 
 import vscode from 'vscode'
 
-import IssueCreatePanel, { WebviewEvents } from '../webviews/issueCreate'
+import IssueCreatePanel from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
 import { EDITOR_DECORATION_OPTION } from './constants'
-import type { CodeSelection, CreateIssueError, WebViewState } from '../types'
+import type { CodeSelection, CreateIssueError, WebViewState, WebviewEvents, CodeReferenceLocation } from '../types'
 
 // @ts-expect-error
 import tpl from '../templates/issueDescription.tpl.eta'
@@ -31,6 +31,7 @@ export default class ExtensionController implements vscode.Disposable {
 
         this._issueCreatePanel = new IssueCreatePanel(this._context)
         this._issueCreatePanel.on('issueCreateSubmission', this.#createIssue.bind(this))
+        this._issueCreatePanel.on('openCodeReference', this.#openCodeReference.bind(this))
         this._issueCreatePanel.on('stateUpdate', (state: WebViewState) => {
             this.#selectedCodeLines = state.codeSelection
         })
@@ -156,5 +157,20 @@ export default class ExtensionController implements vscode.Disposable {
             }
         }
         this.#activeEditor.setDecorations(EDITOR_DECORATION_OPTION, decorations)
+    }
+
+    async #openCodeReference ({ uri, start, end }: CodeReferenceLocation) {
+        if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length === 0) {
+            return console.log('Can\'t open file, no workspace opened')
+        }
+
+        const ws = vscode.workspace.workspaceFolders[0]
+        const doc = await vscode.workspace.openTextDocument(vscode.Uri.joinPath(ws.uri, uri))
+        return vscode.window.showTextDocument(doc, {
+            selection: new vscode.Range(
+                new vscode.Position(start, 0),
+                new vscode.Position(end + (start === end ? 1 : 0), Infinity)
+            )
+        })
     }
 }

@@ -15,8 +15,7 @@ import type { Client } from 'tangle'
 import { updateState } from './utils'
 import { vscode, config, codiconCSSRules } from './constants'
 import { ISSUE_CREATE_CHANNEL } from '../constants'
-import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError } from '../types'
-import type { WebviewEvents } from '../webviews/issueCreate'
+import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError, WebviewEvents } from '../types'
 
 const MARKETPLACE_URL = 'https://marketplace.visualstudio.com/items?itemName=stateful.marquee'
 const state = vscode.getState()
@@ -247,7 +246,9 @@ export class IssueCreateForm extends LitElement {
                         class='codicon codicon-close'
                     ></button>
                     <div>
-                        ${shrinkPath(selection.uri, 50)}
+                        <vscode-link @click=${() => this.#client.emit('openCodeReference', selection)}>
+                            ${shrinkPath(selection.uri, 50)}
+                        </vscode-link>
                         <sub>${
                             selection.start === selection.end
                             ? html/*html*/`<b>Line:</b> ${selection.start + 1}</sub>`

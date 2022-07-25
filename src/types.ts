@@ -46,3 +46,21 @@ export interface ReferencedIssue extends CreateIssueResult {
 export interface WebViewState {
     codeSelection: CodeSelection[]
 }
+
+export interface CodeReferenceLocation {
+    uri: string
+    start: number
+    end: number
+}
+
+export interface WebviewEvents {
+    initIssueForm: CodeSelection[]
+    issueCreateSubmission: {
+        title: string
+        description: string
+        selection: CodeSelection[]
+    }
+    stateUpdate: WebViewState
+    issueCreateResult: CreateIssueResponse
+    openCodeReference: CodeReferenceLocation
+}

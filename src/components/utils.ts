@@ -1,8 +1,7 @@
 import type { Client } from 'tangle'
 
 import { vscode } from './constants'
-import type { WebViewState } from '../types'
-import type { WebviewEvents } from '../webviews/issueCreate'
+import type { WebViewState, WebviewEvents } from '../types'
 
 export const updateState = (client: Client<WebviewEvents>, stateChange: Partial<WebViewState>) => {
     const currentState: WebViewState = vscode.getState() || <WebViewState>{}

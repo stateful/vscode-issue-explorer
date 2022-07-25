@@ -1,6 +1,5 @@
-import { EventEmitter } from 'events'
-
-import {
+import { EventEmitter } from 'node:events'
+import vscode, {
     WebviewView,
     WebviewViewProvider,
     ExtensionContext
@@ -11,18 +10,7 @@ import type { Bus } from 'tangle'
 import { WEBVIEW_OPTIONS, ISSUE_CREATE_CHANNEL } from '../constants'
 import { getHtmlForWebview } from '../utils'
 
-import type { CodeSelection, CreateIssueResponse, WebViewState } from '../types'
-
-export interface WebviewEvents {
-    initIssueForm: CodeSelection[]
-    issueCreateSubmission: {
-        title: string
-        description: string
-        selection: CodeSelection[]
-    }
-    stateUpdate: WebViewState
-    issueCreateResult: CreateIssueResponse
-}
+import type { CodeSelection, CreateIssueResponse, WebviewEvents } from '../types'
 
 export default class IssueCreate extends EventEmitter implements WebviewViewProvider {
     private _client?: Bus<WebviewEvents>
@@ -47,6 +35,7 @@ export default class IssueCreate extends EventEmitter implements WebviewViewProv
         this._client = await bus.registerPromise([this._webviewView.webview])
         this._client.on('issueCreateSubmission', (val) => this.emit('issueCreateSubmission', val))
         this._client.on('stateUpdate', (state) => this.emit('stateUpdate', state))
+        this._client.on('openCodeReference', (position) => this.emit('openCodeReference', position))
         console.log('[IssueCreate] webview resolved')
     }
 
