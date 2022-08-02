@@ -3,6 +3,7 @@ import { EventEmitter } from 'node:events'
 
 import vscode from 'vscode'
 
+import telemetry from '../telemetry'
 import IssueCreatePanel from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
 import { EDITOR_DECORATION_OPTION } from './constants'
@@ -99,6 +100,9 @@ export default class ExtensionController implements vscode.Disposable {
         this.#selectedCodeLines.push(...codeLines)
         await vscode.commands.executeCommand('create-issue.focus')
         this._issueCreatePanel.initIssueForm(this.#selectedCodeLines)
+        telemetry.sendTelemetryEvent('initIssueForm', {
+            selectedLines: this.#selectedCodeLines.length.toString()
+        })
     }
 
     async #createIssue(params: WebviewEvents['issueCreateSubmission']) {
@@ -136,7 +140,11 @@ export default class ExtensionController implements vscode.Disposable {
             return
         }
 
-        const ws = vscode.workspace.getWorkspaceFolder(this.#activeEditor.document.uri)!
+        const ws = vscode.workspace.getWorkspaceFolder(this.#activeEditor.document.uri)
+        if (!ws) {
+            return
+        }
+
         const relativePath = this.#activeEditor.document.fileName.replace(ws.uri.fsPath, '').slice(1)
 
         const provider = await this._git.getRemoteVCS()

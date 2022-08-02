@@ -4,6 +4,7 @@
 !.github/assets
 node_modules/**
 !node_modules/@vscode/codicons
+!node_modules/@vscode/extension-telemetry
 !node_modules/@vscode/webview-ui-toolkit/dist/toolkit.js
 src/**
 .gitignore

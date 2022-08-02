@@ -1,5 +1,6 @@
 import vscode from 'vscode'
 
+import telemetry from '../telemetry'
 import GitHubManager from '../vcs/github'
 import { API, GitExtension, Remote } from '../types/git'
 import type { IRemoteProvider } from '../types'
@@ -17,7 +18,9 @@ export default class GitProvider {
     async #init() {
         const vscodeGit = vscode.extensions.getExtension('vscode.git') as vscode.Extension<GitExtension>
         if (!vscodeGit) {
-            throw new Error('Failed to load git extension.')
+            const message = 'Failed to load git extension.'
+            telemetry.sendTelemetryEvent('error', { message })
+            throw new Error(message)
         }
 
         const ext = await vscodeGit.activate()
@@ -33,8 +36,8 @@ export default class GitProvider {
 
         const remote = await this.#waitForRemotes()
         const [provider, repo] = remote.pushUrl?.split(':') as [string, string]
-
         if (provider.endsWith('github.com')) {
+            telemetry.sendTelemetryEvent('provider', { type: 'github' })
             console.log(`Identified GitHub repository ${repo}`)
             const [owner, repoName] = repo.split('/')
             return new GitHubManager(
@@ -46,7 +49,9 @@ export default class GitProvider {
             )
         }
 
-        throw new Error(`No support for remote provider with url ${remote.pushUrl}`)
+        const message = `No support for remote provider with url ${remote.pushUrl}`
+        telemetry.sendTelemetryEvent('error', { message })
+        throw new Error(message)
     }
 
     public async getRemoteVCS () {

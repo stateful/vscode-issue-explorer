@@ -108,6 +108,42 @@
   resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.3.4.tgz#c4492a54387f7b1020d498a348403229583d1c06"
   integrity sha512-I1wz4uxOA52zSBhKmv4KQWLJpCyvfpnDg+eQR6mjpRgV+Ldi14HLPpSUpJklZRldz0fFmGCC/kVmuc/3cPFqCg==
 
+"@microsoft/1ds-core-js@3.2.4", "@microsoft/1ds-core-js@^3.2.3":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@microsoft/1ds-core-js/-/1ds-core-js-3.2.4.tgz#fbffd3fbcc80b04ba57c961486ff581c59e1180e"
+  integrity sha512-ZkbCb63JF7hN+YQ8e/4nRe6vAIBMpoF8PQNiYiXSzYtdhXZ/pM3jB9/7g0O5LR4h/2IU1amAq0kpBgPbd6NWqg==
+  dependencies:
+    "@microsoft/applicationinsights-core-js" "2.8.5"
+    "@microsoft/applicationinsights-shims" "^2.0.1"
+    "@microsoft/dynamicproto-js" "^1.1.6"
+
+"@microsoft/1ds-post-js@^3.2.3":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@microsoft/1ds-post-js/-/1ds-post-js-3.2.4.tgz#38913faa3fbaca320cea14d275f7cd4c28242d35"
+  integrity sha512-SblhGNkd8C6kzewq+Gc/ViN2oYp1/TJFw0Y4rOfHXCr6siznInBggm5ehqZd/QPXh/7MYqCx4Gpw9Rra18fO0g==
+  dependencies:
+    "@microsoft/1ds-core-js" "3.2.4"
+    "@microsoft/applicationinsights-shims" "^2.0.1"
+    "@microsoft/dynamicproto-js" "^1.1.6"
+
+"@microsoft/applicationinsights-core-js@2.8.5":
+  version "2.8.5"
+  resolved "https://registry.yarnpkg.com/@microsoft/applicationinsights-core-js/-/applicationinsights-core-js-2.8.5.tgz#02adb1b9a7dca83897a9a06a98d1aecdc7526b6f"
+  integrity sha512-7/EgK6r8GiDVluo84skCMNthgnPa6P7TXiJqHBJbuCf11N4YqkZoGjKs+Fo7h6XIPuYMUHVMNLpBObI7oS7HsQ==
+  dependencies:
+    "@microsoft/applicationinsights-shims" "2.0.1"
+    "@microsoft/dynamicproto-js" "^1.1.6"
+
+"@microsoft/applicationinsights-shims@2.0.1", "@microsoft/applicationinsights-shims@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/applicationinsights-shims/-/applicationinsights-shims-2.0.1.tgz#5d72fb7aaf4056c4fda54f9d7c93ccf8ca9bcbfd"
+  integrity sha512-G0MXf6R6HndRbDy9BbEj0zrLeuhwt2nsXk2zKtF0TnYo39KgYqhYC2ayIzKPTm2KAE+xzD7rgyLdZnrcRvt9WQ==
+
+"@microsoft/dynamicproto-js@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@microsoft/dynamicproto-js/-/dynamicproto-js-1.1.6.tgz#6fe03468862861f5f88ac4c3959a652b3797f1bc"
+  integrity sha512-D1Oivw1A4bIXhzBIy3/BBPn3p2On+kpO2NiYt9shICDK7L/w+cR6FFBUsBZ05l6iqzTeL+Jm8lAYn0g6G7DmDg==
+
 "@microsoft/fast-element@^1.10.3", "@microsoft/fast-element@^1.6.2", "@microsoft/fast-element@^1.9.0":
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/@microsoft/fast-element/-/fast-element-1.10.3.tgz#0d513583207c2a33e6ec020c366d836c21423fca"
@@ -271,6 +307,14 @@
     is-builtin-module "^3.1.0"
     is-module "^1.0.0"
     resolve "^1.19.0"
+
+"@rollup/plugin-replace@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-4.0.0.tgz#e34c457d6a285f0213359740b43f39d969b38a67"
+  integrity sha512-+rumQFiaNac9y64OHtkHGmdjm7us9bo1PlbgQfdihQtuNxzjpaB064HbRnewUOggLQxVCCyINfStkgmBeQpv1g==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    magic-string "^0.25.7"
 
 "@rollup/plugin-typescript@^8.3.3":
   version "8.3.3"
@@ -690,6 +734,14 @@
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/@vscode/codicons/-/codicons-0.0.31.tgz#1dc56f9442c3928b1c851965cf360e7e051e6511"
   integrity sha512-fldpXy7pHsQAMlU1pnGI23ypQ6xLk5u6SiABMFoAmlj4f2MR0iwg7C19IB1xvAEGG+dkxOfRSrbKF8ry7QqGQA==
+
+"@vscode/extension-telemetry@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@vscode/extension-telemetry/-/extension-telemetry-0.6.2.tgz#b86814ee680615730da94220c2b03ea9c3c14a8e"
+  integrity sha512-yb/wxLuaaCRcBAZtDCjNYSisAXz3FWsSqAha5nhHcYxx2ZPdQdWuZqVXGKq0ZpHVndBWWtK6XqtpCN2/HB4S1w==
+  dependencies:
+    "@microsoft/1ds-core-js" "^3.2.3"
+    "@microsoft/1ds-post-js" "^3.2.3"
 
 "@vscode/test-electron@^2.1.3", "@vscode/test-electron@^2.1.5":
   version "2.1.5"
@@ -3559,6 +3611,13 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+magic-string@^0.25.7:
+  version "0.25.9"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.9.tgz#de7f9faf91ef8a1c91d02c2e5314c8277dbcdd1c"
+  integrity sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==
+  dependencies:
+    sourcemap-codec "^1.4.8"
+
 make-dir@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
@@ -4686,6 +4745,11 @@ source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
+
+sourcemap-codec@^1.4.8:
+  version "1.4.8"
+  resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
+  integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
 
 spdx-correct@^3.0.0:
   version "3.1.1"

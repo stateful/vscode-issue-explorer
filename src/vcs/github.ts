@@ -6,6 +6,7 @@ const require = createRequire(import.meta.url)
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const { Octokit } = require('@octokit/rest')
 
+import telemetry from '../telemetry'
 import GitProvider from '../provider/git'
 import { ISSUE_LABEL } from '../constants'
 import type {
@@ -47,12 +48,18 @@ export default class GitHubManager implements IRemoteProvider {
             return this.#octokit
         }
 
-        console.log(`Authenticate with ${GITHUB_AUTH_PROVIDER_ID}`)
-        const session = await vscode.authentication.getSession(
-            GITHUB_AUTH_PROVIDER_ID, SCOPES, { createIfNone: true })
+        try {
+            console.log(`Authenticate with ${GITHUB_AUTH_PROVIDER_ID}`)
+            const session = await vscode.authentication.getSession(
+                GITHUB_AUTH_PROVIDER_ID, SCOPES, { createIfNone: true })
 
-        console.log(`Successfully authenticated with ${session.account.label}`)
-        this.#octokit = new Octokit({ auth: session.accessToken })
+            console.log(`Successfully authenticated with ${session.account.label}`)
+            this.#octokit = new Octokit({ auth: session.accessToken })
+        } catch (err: any) {
+            const message = `Failed to authenticate: ${(err as Error).message}`
+            telemetry.sendTelemetryEvent('error', { message })
+            throw new Error(message)
+        }
     }
 
     public async createIssue(title: string, description: string, codeSelection: CodeSelection[]) {
@@ -75,7 +82,13 @@ export default class GitHubManager implements IRemoteProvider {
                 }),
                 labels: [ISSUE_LABEL]
             })!
-            const issueNumber = result.data.url.split('/').pop()
+            const issueNumber = result.data.url.split('/').pop()!
+            telemetry.sendTelemetryEvent('issueCreated', {
+                owner: this.#owner,
+                repo: this.#repo,
+                title,
+                number: issueNumber?.toString()
+            })
 
             console.log('Issue created successfully')
             return <CreateIssueResult>{
@@ -85,9 +98,10 @@ export default class GitHubManager implements IRemoteProvider {
                 authorLabel: `@${result.data.user?.login}`
             }
         } catch (err: any) {
-            const error = `Couldn't create issue: ${(err as Error).message}`
-            vscode.window.showErrorMessage(error)
-            return <CreateIssueError>{ error }
+            const message = `Couldn't create issue: ${(err as Error).message}`
+            vscode.window.showErrorMessage(message)
+            telemetry.sendTelemetryEvent('error', { message })
+            return <CreateIssueError>{ error: message }
         }
     }
 
