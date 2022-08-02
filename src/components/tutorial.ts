@@ -54,6 +54,10 @@ export class ExtensionTutorialComponent extends LitElement {
             </vscode-link>
         </p>
         <div class="tutorial${when(this._isOpen, () => ' open')}">
+            <p>
+                First, select a piece of code, open the context menu and click on
+                <i>Create Issue From Selection</i>, e.g.:
+            </p>
             <img src="${config.baseAppUri}/assets/img/select.gif" style="max-width: 594px" />
             <p>
                 Then fill out the issue form and connect for code references if desired.
@@ -69,7 +73,9 @@ export class ExtensionTutorialComponent extends LitElement {
             </p>
             <img src="${config.baseAppUri}/assets/img/view.gif" style="max-width: 717px" />
             <p>
-                Or explore created issues within VS Code:
+                All issues created with this extension are labelled with <em>🐛 vscode-issue-explorer</em>
+                which allows the extension to find them and highlight these snippets within VS Code.
+                Now you can explore created issues by looking for red highlighted code, e.g.:
             </p>
             <img src="${config.baseAppUri}/assets/img/explore.gif" style="max-width: 671px" />
         </div>
