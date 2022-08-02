@@ -33,6 +33,9 @@
             <%= script.defer ? 'defer' : '' %>
         ></script>
     <% }) %>
+    <style>
+    html, body, issue-create { height: 100% }
+    </style>
 </head>
 <body>
     <issue-create />

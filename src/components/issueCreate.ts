@@ -13,7 +13,7 @@ import type { TextArea, TextField } from '@vscode/webview-ui-toolkit'
 import type { Client } from 'tangle'
 
 import { updateState } from './utils'
-import { vscode, config, codiconCSSRules } from './constants'
+import { vscode, codiconCSSRules } from './constants'
 import { ISSUE_CREATE_CHANNEL } from '../constants'
 import type { CodeSelection, CreateIssueResult, CreateIssueResponse, CreateIssueError, WebviewEvents } from '../types'
 
@@ -31,6 +31,13 @@ export class IssueCreateForm extends LitElement {
 
     static get styles(): CSSResult[] {
         return [css/*css*/`
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
         vscode-radio-group {
             margin: 10px 0
         }
@@ -40,7 +47,7 @@ export class IssueCreateForm extends LitElement {
             margin-top: 5px;
         }
 
-        img, vscode-text-field, vscode-text-area {
+        vscode-text-field, vscode-text-area {
             width: 100%
         }
 
@@ -49,7 +56,8 @@ export class IssueCreateForm extends LitElement {
             margin: 15px 0 5px;
             font-size: .8em;
             border-top: 1px solid rgba(255, 255, 255, .3);
-            padding-top: 3px;
+            padding: 3px 0 10px 0;
+            margin-top: auto;
         }
         footer vscode-link {
             font-size: .9em;
@@ -223,34 +231,19 @@ export class IssueCreateForm extends LitElement {
 
     renderWelcomeView() {
         return html/* html */`
-        <h2>GitHub Issue Explorer</h2>
-        <p>
-            The <vscode-link href="${MARKETPLACE_URL}">GitHub Issue Explorer</vscode-link>
-            allows you to quickly create GitHub issues while working on
-            your code. Just select one or multiple lines, do a right
-            click and pick <i>Create Issue From Selection</i>, e.g.:
-        </p>
-        <img src="${config.baseAppUri}/assets/img/select.gif" style="max-width: 594px" />
-        <p>
-            Then fill out the issue form and connect for code references if desired.
-        </p>
-        <img src="${config.baseAppUri}/assets/img/describe.gif" style="max-width: 269px" />
-        <p>
-            You can comment on individual code references to document
-            what this piece of code is about and what changes you'ld expect.
-        </p>
-        <img src="${config.baseAppUri}/assets/img/details.gif" style="max-width: 269px" />
-        <p>
-            Lastly, click on submit and review your issue on GitHub:
-        </p>
-        <img src="${config.baseAppUri}/assets/img/view.gif" style="max-width: 717px" />
-        <p>
-            Or explore created issues within VS Code:
-        </p>
-        <img src="${config.baseAppUri}/assets/img/explore.gif" style="max-width: 671px" />
-        <footer>
-            For feedback or bug reports, visit <vscode-link href="${GITHUB_URL}"><b>stateful/vscode-issue-explorer</b></vscode-link>
-        </footer>
+        <div class="content">
+            <h2>GitHub Issue Explorer</h2>
+            <p>
+                The <vscode-link href="${MARKETPLACE_URL}">GitHub Issue Explorer</vscode-link>
+                allows you to quickly create GitHub issues while working on
+                your code. Just select one or multiple lines, do a right
+                click and pick <i>Create Issue From Selection</i>.
+            </p>
+            <extension-tutorial></extension-tutorial>
+            <footer>
+                💡 For feedback or bug reports, visit <vscode-link href="${GITHUB_URL}"><b>stateful/vscode-issue-explorer</b></vscode-link>
+            </footer>
+        </div>
         `
     }
 
