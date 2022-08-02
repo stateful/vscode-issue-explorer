@@ -73,7 +73,12 @@ export default class ExtensionController implements vscode.Disposable {
     }
 
     async _createIssueFromSelection(editor: vscode.TextEditor) {
-        const ws = vscode.workspace.getWorkspaceFolder(editor.document.uri)!
+        const ws = vscode.workspace.getWorkspaceFolder(editor.document.uri)
+
+        if (!ws) {
+            return vscode.window.showWarningMessage('Issue Explorer: file is not part of the project repository!')
+        }
+
         const codeLines: CodeSelection[] = editor.selections.map((s) => ({
             uri: editor.document.uri.fsPath
                 // only store path relative to the workspace

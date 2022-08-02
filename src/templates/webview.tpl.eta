@@ -34,7 +34,7 @@
         ></script>
     <% }) %>
     <style>
-    html, body, issue-create { height: 100% }
+    html, body, issue-create { height: 99% }
     </style>
 </head>
 <body>

@@ -53,10 +53,10 @@ export class IssueCreateForm extends LitElement {
 
         footer {
             text-align: center;
-            margin: 15px 0 5px;
+            margin: 15px 0 0;
             font-size: .8em;
             border-top: 1px solid rgba(255, 255, 255, .3);
-            padding: 3px 0 10px 0;
+            padding: 3px 0 0;
             margin-top: auto;
         }
         footer vscode-link {
@@ -156,7 +156,7 @@ export class IssueCreateForm extends LitElement {
     }
 
     render() {
-        if (!this.#codeSelection || this.#codeSelection.length === 0) {
+        if (!this.#result && (!this.#codeSelection || this.#codeSelection.length === 0)) {
             return this.renderWelcomeView()
         }
 
