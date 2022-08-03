@@ -56,7 +56,7 @@ export class IssueCreateForm extends LitElement {
             margin: 15px 0 0;
             font-size: .8em;
             border-top: 1px solid rgba(255, 255, 255, .3);
-            padding: 3px 0 0;
+            padding: 3px 0 15px;
             margin-top: auto;
         }
         footer vscode-link {
@@ -116,6 +116,10 @@ export class IssueCreateForm extends LitElement {
         .createIssueForm {
             opacity: 1;
             transition: opacity .2s linear;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+            height: 100%;
         }
         .createIssueForm.hidden {
             opacity: 0;
@@ -229,22 +233,29 @@ export class IssueCreateForm extends LitElement {
         updateState(this.#client, { codeSelection: this.#codeSelection })
     }
 
+    renderFooter() {
+        return html/* html */`
+        <footer>
+            💡 For feedback or bug reports, visit <vscode-link href="${GITHUB_URL}"><b>stateful/vscode-issue-explorer</b></vscode-link>
+        </footer>`
+    }
+
     renderWelcomeView() {
         return html/* html */`
         <div class="content">
             <h2>GitHub Issue Explorer</h2>
             <p>
                 The <vscode-link href="${MARKETPLACE_URL}">GitHub Issue Explorer</vscode-link>
-                allows you to quickly create GitHub issues while working on
-                your code. Just select one or multiple lines, do a right
-                click and pick <i>Create Issue From Selection</i>.
+                allows you to quickly create GitHub issues while working on your code. Just select
+                one or multiple lines, do a right click and pick <i>Create Issue From Selection</i>.
+            </p>
+            <p>
+                <b>Note:</b> make sure you are working in a project that has <code>git</code>
+                as version control system!
             </p>
             <extension-tutorial></extension-tutorial>
-            <footer>
-                💡 For feedback or bug reports, visit <vscode-link href="${GITHUB_URL}"><b>stateful/vscode-issue-explorer</b></vscode-link>
-            </footer>
-        </div>
-        `
+            ${this.renderFooter()}
+        </div>`
     }
 
     renderForm () {
@@ -313,6 +324,7 @@ export class IssueCreateForm extends LitElement {
                 </li>
                 `)}
             </ul>
+            ${this.renderFooter()}
         </form>`
     }
 
