@@ -1,0 +1,29 @@
+// Vitest Snapshot v1
+
+exports[`should be able to submit something 1`] = `
+[
+  "issueCreateSubmission",
+  {
+    "description": "some text 0",
+    "selection": [
+      {
+        "code": "console.log(\\"foobar\\")",
+        "comment": "",
+        "end": 2,
+        "fileType": "js",
+        "start": 1,
+        "uri": "/foo/bar",
+      },
+      {
+        "code": "console.log(\\"foobar\\")",
+        "comment": "",
+        "end": 2,
+        "fileType": "js",
+        "start": 1,
+        "uri": "/foo/bar",
+      },
+    ],
+    "title": "some long description",
+  },
+]
+`;
