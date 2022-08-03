@@ -12,11 +12,7 @@ export default defineConfig({
         ],
         coverage: {
             enabled: false,
-            exclude: ['node_modules', '**/out/**'],
-            // lines: 90,
-            // functions: 90,
-            // branches: 90,
-            // statements: 90
+            exclude: ['node_modules', '**/out/**']
         }
     }
 })

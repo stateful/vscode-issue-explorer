@@ -2,7 +2,9 @@
 import fs from 'node:fs/promises'
 import url from 'node:url'
 import path from 'node:path'
+import json from '@rollup/plugin-json'
 import replace from '@rollup/plugin-replace'
+import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import copy from 'rollup-plugin-copy'
@@ -59,6 +61,8 @@ export default [
             }
         }),
         typescript({ tsconfig: './tsconfig.json' }),
+        json(),
+        commonjs({ transformMixedEsModules: true }),
         resolve({ extensions }),
         eta(),
         copy({ targets: [{ src: 'src/assets', dest: 'out' }] })

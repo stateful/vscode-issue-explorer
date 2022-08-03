@@ -1,10 +1,6 @@
 import vscode from 'vscode'
-import { createRequire } from 'node:module'
-import type { Octokit as OctokitType, RestEndpointMethodTypes } from '@octokit/rest'
-
-const require = createRequire(import.meta.url)
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { Octokit } = require('@octokit/rest')
+import { Octokit } from '@octokit/rest'
+import type { RestEndpointMethodTypes } from '@octokit/rest'
 
 import telemetry from '../telemetry'
 import GitProvider from '../provider/git'
@@ -22,7 +18,7 @@ const SCOPES = ['user:email', 'repo']
 const COMMENT_START = '<!-- '
 
 export default class GitHubManager implements IRemoteProvider {
-    #octokit?: OctokitType
+    #octokit?: Octokit
     #owner: string
     #repo: string
     #git: GitProvider
