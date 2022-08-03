@@ -9,7 +9,7 @@ const sleep = (ms = 200) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export default class GitProvider {
     #git?: API
-    #vcsManager: Promise<IRemoteProvider>
+    #vcsManager: Promise<IRemoteProvider | void>
 
     constructor () {
         this.#vcsManager = this.#init()
@@ -20,7 +20,8 @@ export default class GitProvider {
         if (!vscodeGit) {
             const message = 'Failed to load git extension.'
             telemetry.sendTelemetryEvent('error', { message })
-            throw new Error(message)
+            vscode.window.showErrorMessage(`Issue Explorer: ${message}`)
+            return
         }
 
         const ext = await vscodeGit.activate()
@@ -31,7 +32,7 @@ export default class GitProvider {
         )
 
         if (!folder) {
-            throw new Error('No workspace detected.')
+            return
         }
 
         const remote = await this.#waitForRemotes()
@@ -49,9 +50,9 @@ export default class GitProvider {
             )
         }
 
-        const message = `No support for remote provider with url ${remote.pushUrl}`
+        const message = `Issue Explorer: No support for remote provider with url ${remote.pushUrl}`
         telemetry.sendTelemetryEvent('error', { message })
-        throw new Error(message)
+        vscode.window.showErrorMessage(message)
     }
 
     public async getRemoteVCS () {

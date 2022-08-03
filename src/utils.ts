@@ -44,7 +44,7 @@ export async function getHtmlForWebview(webview: Webview, extensionUri: Uri) {
         })
         return html!
     } catch (err: any) {
-        window.showErrorMessage(`Couldn't generate template: ${err.message}`)
+        window.showErrorMessage(`Issue Explorer: Couldn't generate template: ${err.message}`)
         return ''
     }
 }

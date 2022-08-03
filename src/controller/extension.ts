@@ -77,7 +77,7 @@ export default class ExtensionController implements vscode.Disposable {
         const ws = vscode.workspace.getWorkspaceFolder(editor.document.uri)
 
         if (!ws) {
-            return vscode.window.showWarningMessage('Issue Explorer: file is not part of the project repository!')
+            return vscode.window.showWarningMessage('Issue Explorer: file is not part of a project with a git repository!')
         }
 
         const codeLines: CodeSelection[] = editor.selections.map((s) => ({
@@ -97,6 +97,14 @@ export default class ExtensionController implements vscode.Disposable {
             ))
         }))
 
+        /**
+         * if the extension failed to load due to error this variable
+         * can be undefined given the way rollup bundles private fields
+         */
+        if (!this.#selectedCodeLines) {
+            return
+        }
+
         this.#selectedCodeLines.push(...codeLines)
         await vscode.commands.executeCommand('create-issue.focus')
         this._issueCreatePanel.initIssueForm(this.#selectedCodeLines)
@@ -107,6 +115,11 @@ export default class ExtensionController implements vscode.Disposable {
 
     async #createIssue(params: WebviewEvents['issueCreateSubmission']) {
         const provider = await this._git.getRemoteVCS()
+
+        if (!provider) {
+            return
+        }
+
         const result = await provider.createIssue(params.title, params.description, params.selection)
         this._issueCreatePanel.emitIssueCreationResult(result)
 
@@ -145,9 +158,15 @@ export default class ExtensionController implements vscode.Disposable {
             return
         }
 
-        const relativePath = this.#activeEditor.document.fileName.replace(ws.uri.fsPath, '').slice(1)
+        const relativePath = this.#activeEditor.document.fileName
+            .replace(ws.uri.fsPath, '')
+            .slice(1)
 
         const provider = await this._git.getRemoteVCS()
+        if (!provider) {
+            return
+        }
+
         const referencedIssues = await provider.findIssues()
         const relativeIssues = referencedIssues.filter(
             (issue) => issue.referencedFiles.includes(relativePath))

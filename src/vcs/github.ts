@@ -95,7 +95,7 @@ export default class GitHubManager implements IRemoteProvider {
             }
         } catch (err: any) {
             const message = `Couldn't create issue: ${(err as Error).message}`
-            vscode.window.showErrorMessage(message)
+            vscode.window.showErrorMessage(`Issue Explorer: ${message}`)
             telemetry.sendTelemetryEvent('error', { message })
             return <CreateIssueError>{ error: message }
         }
