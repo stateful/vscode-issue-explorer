@@ -6,7 +6,7 @@ import vscode from 'vscode'
 import telemetry from '../telemetry'
 import IssueCreatePanel from '../webviews/issueCreate'
 import GitProvider from '../provider/git'
-import { EDITOR_DECORATION_OPTION } from './constants'
+import { EDITOR_DECORATION_OPTION, NO_GIT_EXTENSION_ERROR } from './constants'
 import type { CodeSelection, CreateIssueError, WebViewState, WebviewEvents, CodeReferenceLocation } from '../types'
 
 // @ts-expect-error
@@ -77,7 +77,7 @@ export default class ExtensionController implements vscode.Disposable {
         const ws = vscode.workspace.getWorkspaceFolder(editor.document.uri)
 
         if (!ws) {
-            return vscode.window.showWarningMessage('Issue Explorer: file is not part of a project with a git repository!')
+            return vscode.window.showWarningMessage(NO_GIT_EXTENSION_ERROR)
         }
 
         const codeLines: CodeSelection[] = editor.selections.map((s) => ({
@@ -117,7 +117,7 @@ export default class ExtensionController implements vscode.Disposable {
         const provider = await this._git.getRemoteVCS()
 
         if (!provider) {
-            return
+            return vscode.window.showWarningMessage(NO_GIT_EXTENSION_ERROR)
         }
 
         const result = await provider.createIssue(params.title, params.description, params.selection)
@@ -164,7 +164,7 @@ export default class ExtensionController implements vscode.Disposable {
 
         const provider = await this._git.getRemoteVCS()
         if (!provider) {
-            return
+            return vscode.window.showWarningMessage(NO_GIT_EXTENSION_ERROR)
         }
 
         const referencedIssues = await provider.findIssues()

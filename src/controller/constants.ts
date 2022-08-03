@@ -13,3 +13,5 @@ export const EDITOR_DECORATION_OPTION = vscode.window.createTextEditorDecoration
     gutterIconSize: 'contain',
     overviewRulerLane: vscode.OverviewRulerLane.Left,
 })
+
+export const NO_GIT_EXTENSION_ERROR = 'Issue Explorer: file is not part of a project with a git repository!'

@@ -16,6 +16,7 @@ export default class GitProvider {
     }
 
     async #init() {
+        console.log('[GitProvider] initiate git extension')
         const vscodeGit = vscode.extensions.getExtension('vscode.git') as vscode.Extension<GitExtension>
         if (!vscodeGit) {
             const message = 'Failed to load git extension.'
