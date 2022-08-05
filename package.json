@@ -2,7 +2,7 @@
   "name": "issue-explorer",
   "displayName": "VS Code Issue Explorer",
   "description": "A VS Code extension that helps to create and explore GitHub issues within your IDE.",
-  "version": "1.0.0-edge.6",
+  "version": "1.0.0",
   "license": "MIT",
   "publisher": "stateful",
   "icon": "assets/icon.png",
