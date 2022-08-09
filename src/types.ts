@@ -63,4 +63,5 @@ export interface WebviewEvents {
     stateUpdate: WebViewState
     issueCreateResult: CreateIssueResponse
     openCodeReference: CodeReferenceLocation
+    openWalkthrough: never
 }

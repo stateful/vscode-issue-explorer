@@ -36,6 +36,7 @@ export default class IssueCreate extends EventEmitter implements WebviewViewProv
         this._client.on('issueCreateSubmission', (val) => this.emit('issueCreateSubmission', val))
         this._client.on('stateUpdate', (state) => this.emit('stateUpdate', state))
         this._client.on('openCodeReference', (position) => this.emit('openCodeReference', position))
+        this._client.on('openWalkthrough', () => vscode.commands.executeCommand('issue-explorer.getStarted'))
         console.log('[IssueCreate] webview resolved')
     }
 
