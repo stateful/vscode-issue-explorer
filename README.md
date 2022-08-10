@@ -1,7 +1,8 @@
 <p align="center">
     <img alt="VS Code Issue Explorer" src="assets/logo.jpg" width="100%">
-    <h1 style="text-align:center">VS Code Issue Explorer</h1>
 </p>
+
+<h1 align="center">VS Code Issue Explorer</h1>
 
 <p align="center">
     <a href="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml">
