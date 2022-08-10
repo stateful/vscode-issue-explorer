@@ -81,7 +81,7 @@
       "steps": [{
         "id": "issue-explorer.welcome.blog-post",
         "title": "Read Release Blog Post",
-        "description": "Have a read to the release blog post of this extension to understand why this extension was build.\n\n[Read Release Blog Post](https://www.stateful.com/blog \"Read Release Blog Post\")",
+        "description": "Have a read to the release blog post of this extension to understand why this extension was build.\n\n[Read Release Blog Post](https://www.stateful.com/blog/use-vs-code-for-bug-reporting-to-lower-the-entry-bar-for-new-contributors \"Read Release Blog Post\")",
         "media": {
           "markdown": "walkthroughs/0-blog-post.md"
         }
