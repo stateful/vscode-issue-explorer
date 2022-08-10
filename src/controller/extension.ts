@@ -67,6 +67,10 @@ export default class ExtensionController implements vscode.Disposable {
             this._createIssueFromSelection.bind(this),
             true
         )
+        this._registerCommand(
+            'issue-explorer.getStarted',
+            this.#openWalkthrough.bind(this)
+        )
 
         this.#activeEditor = vscode.window.activeTextEditor
         this.#updateDecorations()
@@ -204,5 +208,16 @@ export default class ExtensionController implements vscode.Disposable {
                 new vscode.Position(end + (start === end ? 1 : 0), Infinity)
             )
         })
+    }
+
+    #openWalkthrough () {
+        vscode.commands.executeCommand(
+            'workbench.action.openWalkthrough',
+            {
+                category: `stateful.issue-explorer#issue-explorer.welcome`,
+                step: undefined,
+            },
+            false
+        )
     }
 }

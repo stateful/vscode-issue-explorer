@@ -253,7 +253,14 @@ export class IssueCreateForm extends LitElement {
                 <b>Note:</b> make sure you are working in a project that has <code>git</code>
                 as version control system!
             </p>
-            <extension-tutorial></extension-tutorial>
+            <p>
+                <vscode-link
+                    href="command:issue-explorer.getStarted"
+                    @click=${() => this.#client.emit('openWalkthrough', null as never)}
+                >
+                    → Open Walkthrough
+                </vscode-link>
+            </p>
             ${this.renderFooter()}
         </div>`
     }

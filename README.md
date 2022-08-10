@@ -1,15 +1,22 @@
-VS Code Issue Explorer
-======================
+<p align="center">
+    <img alt="VS Code Issue Explorer" src="assets/logo.jpg" width="100%">
+</p>
 
-[![Tests](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg)](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml)
-![vscode version](https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg)
-![number of installs](https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg)
-![average user rating](https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg)
-![license](https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg)
+<h1 align="center">VS Code Issue Explorer</h1>
+
+<p align="center">
+    <a href="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml">
+        <img alt="Tests" src="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg">
+    </a>
+    <img alt="VS Code Version" src="https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg">
+    <img alt="Number of Installs" src="https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg">
+    <img alt="Average Rating" src="https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg">
+    <img alt="License" src="https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg">
+</p>
 
 ### Create and explore code issues directly within VS Code and help to provide missing context in your issues through code references
 
-A lot of issues that are created in a project are missing contextual information that help folks to better understand where the problems are located and what needs to be done to resolve an issue. With this extension to can create better issue descriptions through code references and allow your contributor to better explore these issues rigth within VS Code.
+A lot of issues that are created in a project are missing contextual information that help folks to better understand where the problems are located and what needs to be done to resolve an issue. With this extension to can __create better issue descriptions through code references__ and allow your contributor to __better explore these issues rigth within VS Code__.
 
 <p align="center" style="padding: 20px 0">
   <a href="https://marketplace.visualstudio.com/items?itemName=stateful.issue-explorer&ssr=false#overview">

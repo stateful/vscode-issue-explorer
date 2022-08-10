@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "publisher": "stateful",
-  "icon": "assets/icon.png",
+  "icon": "assets/extension-logo.png",
   "galleryBanner": {
     "color": "#2F2F2F",
     "theme": "dark"
@@ -40,7 +40,12 @@
         "title": "Create Issue From Selection",
         "category": "Issue Explorer",
         "enablement": "editorHasSelection"
-      }
+      },
+      {
+				"command": "issue-explorer.getStarted",
+				"title": "Get Started",
+				"category": "Issue Explorer"
+			}
     ],
     "viewsContainers": {
       "activitybar": [
@@ -68,7 +73,55 @@
           "group": "1_modification"
         }
       ]
-    }
+    },
+    "walkthroughs": [{
+      "id": "issue-explorer.welcome",
+      "title": "Get Started with Issue Explorer",
+      "description": "Create GitHub issues with annotated code references to provide contextual information and lower the bar for contributing to your project.",
+      "steps": [{
+        "id": "issue-explorer.welcome.blog-post",
+        "title": "Read Release Blog Post",
+        "description": "Have a read to the release blog post of this extension to understand why this extension was build.\n\n[Read Release Blog Post](https://www.stateful.com/blog/use-vs-code-for-bug-reporting-to-lower-the-entry-bar-for-new-contributors \"Read Release Blog Post\")",
+        "media": {
+          "markdown": "walkthroughs/0-blog-post.md"
+        }
+      }, {
+        "id": "issue-explorer.welcome.select",
+        "title": "Select a piece of code",
+        "description": "First, select a piece of code, open the context menu and click on *Create Issue From Selection*",
+        "media": {
+          "markdown": "walkthroughs/1-select.md"
+        }
+      }, {
+        "id": "issue-explorer.welcome.issue-form",
+        "title": "Fill out issue form",
+        "description": "Then fill out the issue form and connect for code references if desired.",
+        "media": {
+          "markdown": "walkthroughs/2-issue-form.md"
+        }
+      }, {
+        "id": "issue-explorer.welcome.comment",
+        "title": "Comment on individual code references",
+        "description": "You can comment on individual code references to document what this piece of code is about and what changes you'ld expect.",
+        "media": {
+          "markdown": "walkthroughs/3-comment.md"
+        }
+      }, {
+        "id": "issue-explorer.welcome.submit",
+        "title": "Submit and view on GitHub",
+        "description": "Lastly, click on submit and review your issue on GitHub.",
+        "media": {
+          "markdown": "walkthroughs/4-submit.md"
+        }
+      }, {
+        "id": "issue-explorer.welcome.explore",
+        "title": "Explore Issues within VS Code",
+        "description": "All issues created with this extension are labelled with 🐛 vscode-issue-explorer which allows the extension to find them and highlight these snippets within VS Code. Now you can explore created issues by looking for red highlighted code.",
+        "media": {
+          "markdown": "walkthroughs/5-explore.md"
+        }
+      }]
+    }]
   },
   "extensionDependencies": [
     "vscode.git"
@@ -108,7 +161,6 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.76.0",
-    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-eta": "^1.0.0",
     "ts-node": "^10.8.2",
     "tslib": "^2.4.0",
