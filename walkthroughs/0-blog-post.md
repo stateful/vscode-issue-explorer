@@ -1,6 +1,6 @@
 <p align="center">
   <a title="Read Release Blog Post" href="https://www.youtube.com/watch?v=UQPb73Zz9qk">
-    <img src="https://www.stateful.com/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2F3VEFzPFNTeWEhAxUi9KV&w=1920&q=75" alt="Read Release Blog Post" />
+    <img src="https://www.stateful.com/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FEpEQOszQT8Crm0G0mGmG&w=1920&q=75" alt="Read Release Blog Post" />
   </a>
 </p>
 
