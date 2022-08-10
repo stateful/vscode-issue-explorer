@@ -16,7 +16,7 @@
 
 ### Create and explore code issues directly within VS Code and help to provide missing context in your issues through code references
 
-A lot of issues that are created in a project are missing contextual information that help folks to better understand where the problems are located and what needs to be done to resolve an issue. With this extension to can create better issue descriptions through code references and allow your contributor to better explore these issues rigth within VS Code.
+A lot of issues that are created in a project are missing contextual information that help folks to better understand where the problems are located and what needs to be done to resolve an issue. With this extension to can __create better issue descriptions through code references__ and allow your contributor to __better explore these issues rigth within VS Code__.
 
 <p align="center" style="padding: 20px 0">
   <a href="https://marketplace.visualstudio.com/items?itemName=stateful.issue-explorer&ssr=false#overview">
