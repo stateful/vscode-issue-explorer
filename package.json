@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "publisher": "stateful",
-  "icon": "assets/icon.png",
+  "icon": "assets/extension-logo.png",
   "galleryBanner": {
     "color": "#2F2F2F",
     "theme": "dark"

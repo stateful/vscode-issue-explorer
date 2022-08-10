@@ -1,11 +1,17 @@
-VS Code Issue Explorer
-======================
+<p align="center">
+    <img alt="VS Code Issue Explorer" src="assets/logo.jpg" width="100%">
+    <h1 style="text-align:center">VS Code Issue Explorer</h1>
+</p>
 
-[![Tests](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg)](https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml)
-![vscode version](https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg)
-![number of installs](https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg)
-![average user rating](https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg)
-![license](https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg)
+<p align="center">
+    <a href="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml">
+        <img alt="Tests" src="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg">
+    </a>
+    <img alt="VS Code Version" src="https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg">
+    <img alt="Number of Installs" src="https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg">
+    <img alt="Average Rating" src="https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg">
+    <img alt="License" src="https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg">
+</p>
 
 ### Create and explore code issues directly within VS Code and help to provide missing context in your issues through code references
 
