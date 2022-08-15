@@ -64,7 +64,9 @@ jobs:
       - name: Run Tests
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: yarn test
+          run: |
+            yarn test
+            git checkout -- package.json
           options: "-screen 0 1600x1200x24"
       - name: Create Changelog
         run: |
