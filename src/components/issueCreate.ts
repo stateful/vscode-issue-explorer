@@ -3,9 +3,9 @@ import {
     css,
     unsafeCSS,
     CSSResult,
-    LitElement,
-    customElement
-} from 'lit-element'
+    LitElement
+} from 'lit'
+import { customElement } from 'lit/decorators.js'
 import { when } from 'lit/directives/when.js'
 import Channel from 'tangle/webviews'
 import shrinkPath from 'shrink-path'
