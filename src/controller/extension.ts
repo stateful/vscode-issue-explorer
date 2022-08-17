@@ -176,6 +176,13 @@ export default class ExtensionController implements vscode.Disposable {
             (issue) => issue.referencedFiles.includes(relativePath))
 
         /**
+         * active editor could not be active at this point anymore
+         */
+        if (!this.#activeEditor) {
+            return
+        }
+
+        /**
          * highlight text
          */
         this.#activeEditor.setDecorations(EDITOR_DECORATION_OPTION, [])
