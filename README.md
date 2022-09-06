@@ -19,6 +19,9 @@ A lot of issues that are created in a project are missing contextual information
   <a href="https://marketplace.visualstudio.com/items?itemName=stateful.issue-explorer&ssr=false#overview">
     <img src="https://img.shields.io/badge/Install-VSCode%20Marketplace-blue" />
   </a>
+  <a href="https://open-vsx.org/extension/stateful/issue-explorer">
+    <img src="https://img.shields.io/badge/Install-Open%20VSX%20Registry-c160ef" />
+  </a>
 </p>
 
 ![Demo](./assets/demo.gif)
