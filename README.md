@@ -8,9 +8,6 @@
     <a href="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml">
         <img alt="Tests" src="https://github.com/stateful/vscode-issue-explorer/actions/workflows/tests.yaml/badge.svg">
     </a>
-    <img alt="VS Code Version" src="https://vsmarketplacebadge.apphb.com/version/stateful.issue-explorer.svg">
-    <img alt="Number of Installs" src="https://vsmarketplacebadge.apphb.com/installs/stateful.issue-explorer.svg">
-    <img alt="Average Rating" src="https://vsmarketplacebadge.apphb.com/rating/stateful.issue-explorer.svg">
     <img alt="License" src="https://img.shields.io/github/license/stateful/vscode-issue-explorer.svg">
 </p>
 
