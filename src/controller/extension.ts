@@ -168,7 +168,7 @@ export default class ExtensionController implements vscode.Disposable {
 
         const provider = await this._git.getRemoteVCS()
         if (!provider) {
-            return vscode.window.showWarningMessage(NO_GIT_EXTENSION_ERROR)
+            return console.warn(NO_GIT_EXTENSION_ERROR)
         }
 
         const referencedIssues = await provider.findIssues()
