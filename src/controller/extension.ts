@@ -106,7 +106,7 @@ export default class ExtensionController implements vscode.Disposable {
          * can be undefined given the way rollup bundles private fields
          */
         if (!this.#selectedCodeLines) {
-            return
+            this.#selectedCodeLines = []
         }
 
         this.#selectedCodeLines.push(...codeLines)
